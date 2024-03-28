@@ -19,6 +19,7 @@ jobs:
         run: |
           docker run -e CI=true authors-api npm run test
   deploy:
+    needs: test
     name: Deploy API
     runs-on: ubuntu-latest
     steps:
