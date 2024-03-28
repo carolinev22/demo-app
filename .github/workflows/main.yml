@@ -1,0 +1,26 @@
+name: CICD for Main Branch
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  test:
+    name: Build and Test API
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build API
+        run: |
+          docker build -t authors-api ./api
+      - name: Test API
+        run: |
+          docker run -e CI=true authors-api npm run test
+  deploy:
+    name: Deploy API
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Site
+        run: echo "Hello World"
